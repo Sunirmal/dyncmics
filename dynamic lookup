@@ -1,0 +1,435 @@
+✅ If You Want Table Format (like a Grid), Do This:
+Update your JavaScript to build and insert a HTML table into the externalLookupResults div.
+
+🛠 Example
+✅ HTML:
+html
+Copy
+Edit
+<div>
+  <input type="text" id="externalLookupInput" placeholder="Search customer..." oninput="searchExternalCustomer()" />
+  <div id="externalLookupResults" style="border: 1px solid #ccc; max-height: 150px; overflow-y: auto;"></div>
+</div>
+✅ JavaScript:
+js
+Copy
+Edit
+function searchExternalCustomer() {
+    var inputValue = document.getElementById("externalLookupInput").value;
+
+    fetch(`https://api.example.com/customers?search=${inputValue}`)
+        .then(response => response.json())
+        .then(data => {
+            var container = document.getElementById("externalLookupResults");
+            container.innerHTML = ""; // Clear previous results
+
+            if (data.length === 0) {
+                container.innerHTML = "<p>No results found</p>";
+                return;
+            }
+
+            // Create table
+            var table = document.createElement("table");
+            table.style.width = "100%";
+            table.style.borderCollapse = "collapse";
+
+            // Table Header
+            var headerRow = document.createElement("tr");
+            ["Name", "Email", "Select"].forEach(header => {
+                var th = document.createElement("th");
+                th.innerText = header;
+                th.style.border = "1px solid #ccc";
+                th.style.padding = "5px";
+                th.style.backgroundColor = "#f0f0f0";
+                headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+
+            // Table Rows
+            data.forEach(item => {
+                var row = document.createElement("tr");
+
+                var nameCell = document.createElement("td");
+                nameCell.innerText = item.name;
+                nameCell.style.border = "1px solid #ccc";
+                nameCell.style.padding = "5px";
+
+                var emailCell = document.createElement("td");
+                emailCell.innerText = item.email;
+                emailCell.style.border = "1px solid #ccc";
+                emailCell.style.padding = "5px";
+
+                var selectCell = document.createElement("td");
+                selectCell.style.border = "1px solid #ccc";
+                selectCell.style.padding = "5px";
+                var btn = document.createElement("button");
+                btn.innerText = "Select";
+                btn.onclick = function () {
+                    Xrm.Page.getAttribute("new_externalid").setValue(item.id); // Set to CRM field
+                    container.innerHTML = ""; // Clear after selection
+                };
+                selectCell.appendChild(btn);
+
+                row.appendChild(nameCell);
+                row.appendChild(emailCell);
+                row.appendChild(selectCell);
+                table.appendChild(row);
+            });
+
+            container.appendChild(table);
+        });
+}
+🧪 Output: You’ll See a Table Like This
+Name	Email	Select
+Contoso Ltd	info@contoso.com	[Select]
+Fabrikam Inc	contact@fabrikam.com	[Select]
+
+Clicking "Select" sets the value in your CRM field.
+
+Would you like a complete downloadable HTML + JS file version of this simulation?
+
+
+
+
+
+
+
+
+You said:
+yes
+
+
+ChatGPT said:
+Here is a complete, downloadable HTML + JavaScript example that simulates a lookup using data loaded dynamically from an API. It shows the results in a table format and allows selecting a value, which could then be sent to Dynamics 365 via Xrm.Page (if embedded in CRM).
+
+📄 externalLookup.html
+html
+Copy
+Edit
+<!DOCTYPE html>
+<html>
+<head>
+  <title>External Lookup Control</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+
+    input[type="text"] {
+      width: 300px;
+      padding: 6px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 6px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    #externalLookupResults {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h3>Search External Customer</h3>
+  <input type="text" id="externalLookupInput" placeholder="Type customer name..." oninput="searchExternalCustomer()" />
+
+  <div id="externalLookupResults"></div>
+
+  <script>
+    async function searchExternalCustomer() {
+      const query = document.getElementById("externalLookupInput").value;
+      const container = document.getElementById("externalLookupResults");
+      container.innerHTML = "<p>Searching...</p>";
+
+      // 🔄 Simulate API call (replace with your real API URL)
+      try {
+        // Fake data for demo purposes
+        const data = await new Promise(resolve => setTimeout(() => resolve([
+          { id: "1", name: "Contoso Ltd", email: "info@contoso.com" },
+          { id: "2", name: "Fabrikam Inc", email: "contact@fabrikam.com" },
+          { id: "3", name: "Litware Corp", email: "support@litware.com" }
+        ].filter(x => x.name.toLowerCase().includes(query.toLowerCase()))), 500));
+
+        if (data.length === 0) {
+          container.innerHTML = "<p>No results found.</p>";
+          return;
+        }
+
+        const table = document.createElement("table");
+
+        // Header row
+        const headerRow = document.createElement("tr");
+        ["Name", "Email", "Select"].forEach(text => {
+          const th = document.createElement("th");
+          th.textContent = text;
+          headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+
+        // Data rows
+        data.forEach(item => {
+          const row = document.createElement("tr");
+
+          const nameCell = document.createElement("td");
+          nameCell.textContent = item.name;
+
+          const emailCell = document.createElement("td");
+          emailCell.textContent = item.email;
+
+          const selectCell = document.createElement("td");
+          const button = document.createElement("button");
+          button.textContent = "Select";
+          button.onclick = () => {
+            alert("Selected: " + item.name + " (ID: " + item.id + ")");
+
+            // If running inside Dynamics 365, set the field like this:
+            // Xrm.Page.getAttribute("new_externalcustomerid").setValue([{ id: item.id, name: item.name, entityType: "contact" }]);
+
+            container.innerHTML = ""; // Clear dropdown
+            document.getElementById("externalLookupInput").value = item.name;
+          };
+          selectCell.appendChild(button);
+
+          row.appendChild(nameCell);
+          row.appendChild(emailCell);
+          row.appendChild(selectCell);
+          table.appendChild(row);
+        });
+
+        container.innerHTML = "";
+        container.appendChild(table);
+      } catch (error) {
+        container.innerHTML = "<p style='color:red;'>Error fetching data.</p>";
+        console.error(error);
+      }
+    }
+  </script>
+
+</body>
+</html>
+🔧 How to Use This in CRM
+Save this file as externalLookup.html.
+
+Upload it as a Web Resource in CRM (type: Web Page).
+
+Optionally expose Xrm.Page.getAttribute().setValue() to set values into CRM fields when a row is selected.
+
+Embed it inside a section or tab on your form using an iFrame, or convert it to a PCF for tighter integration.
+
+Would you like help converting this into a PCF control as the next step?
+
+
+
+
+
+
+
+
+You said:
+How Embed it inside a section or tab on your form using an iFrame, or convert it to a PCF for tighter integration.
+
+
+ChatGPT said:
+To embed a custom lookup HTML (like externalLookup.html) into a Dynamics 365 form, you have two main options:
+
+✅ Option 1: Embed via iFrame on the Form
+This is the quickest and easiest way to embed an HTML file (Web Resource) in a tab or section.
+
+🔧 Steps to Embed HTML Web Resource using iFrame:
+1. Upload HTML as a Web Resource
+Go to Advanced Settings → Customizations → Customize the System.
+
+Under Components, go to Web Resources.
+
+Click New:
+
+Name: new_externalLookup.html
+
+Type: Webpage (HTML)
+
+Upload your file (externalLookup.html)
+
+Save and Publish.
+
+2. Add iFrame to Your Form
+Go to the entity (e.g., Contact or Custom Entity) → Forms.
+
+Open the main form → In the section where you want the lookup, click Insert > iFrame.
+
+Set the iFrame properties:
+
+Name: IFRAME_ExternalLookup
+
+Web Resource: select your uploaded HTML
+
+Restrict cross-frame scripting: ❌ Uncheck this (important if your HTML wants to call Xrm.Page)
+
+Pass record object-type code and ID: ✅ (optional)
+
+Save the form and Publish.
+
+3. Access CRM Fields from HTML (optional)
+You can use:
+
+js
+Copy
+Edit
+window.parent.Xrm.Page.getAttribute("new_fieldname").setValue("value");
+⚠️ This works only if cross-frame scripting is allowed and you're not restricted by security policies.
+
+✅ Example Use Case
+User searches external customers in the HTML lookup inside an iFrame.
+
+On clicking "Select", your HTML calls:
+
+js
+Copy
+Edit
+window.parent.Xrm.Page.getAttribute("new_externalid").setValue(item.id);
+✅ Option 2: Convert to a PCF Control (Recommended for Production)
+This gives a modern experience, lets you bind to actual CRM fields, and avoids the iframe hack.
+
+🔧 Steps to Convert to PCF:
+1. Install PCF CLI Tools (if not already)
+bash
+Copy
+Edit
+npm install -g pac pcf-scripts
+2. Create PCF Project
+bash
+Copy
+Edit
+pac pcf init --namespace ExternalLookups --name ExternalLookupControl --template field
+cd ExternalLookupControl
+npm install
+3. Write Your Lookup Logic in index.ts
+Use fetch() or Axios to load data from your external API. Render results in dropdown/table in the DOM and bind selection using:
+
+ts
+Copy
+Edit
+public getOutputs(): IOutputs {
+    return {
+        value: this.selectedValue  // return selected ID/name/etc.
+    };
+}
+4. Build and Deploy to CRM
+bash
+Copy
+Edit
+npm run build
+pac pcf push --publisher-prefix ext
+You can now use this PCF control on a bound field directly via form designer.
+
+✅ When to Use Which?
+Method	Use Case	CRM Field Binding	Complexity
+iFrame	Quick embed of external HTML	❌ Manual	Easy
+PCF	Production-level, modern UI, native feel	✅ Yes	Medium
+
+Would you like a PCF starter template that mimics the table-based lookup with API call?
+
+
+
+
+
+
+
+
+You said:
+save it to my git
+
+
+ChatGPT said:
+To save the custom lookup project (HTML version or PCF version) to your GitHub, you’ll need to do the following on your local system. Here’s a step-by-step guide for both approaches.
+
+🔧 OPTION 1: Save the HTML Lookup Project to GitHub
+📁 Project Structure (simple)
+css
+Copy
+Edit
+external-lookup-html/
+├── externalLookup.html
+└── README.md
+✅ Steps:
+Create a local folder
+
+bash
+Copy
+Edit
+mkdir external-lookup-html
+cd external-lookup-html
+Save the HTML code
+Create externalLookup.html using VS Code or any editor and paste the full HTML from above.
+
+Initialize a Git repo
+
+bash
+Copy
+Edit
+git init
+git add .
+git commit -m "Initial commit: External Lookup HTML version"
+Create a GitHub repo
+
+Go to https://github.com
+
+Click New Repository
+
+Name it something like external-lookup-html
+
+Don’t initialize with README (you already have one locally)
+
+Push to GitHub
+Replace YOUR_USERNAME with your GitHub username:
+
+bash
+Copy
+Edit
+git remote add origin https://github.com/YOUR_USERNAME/external-lookup-html.git
+git branch -M main
+git push -u origin main
+🔧 OPTION 2: Save the PCF Project to GitHub
+Once you've initialized the PCF project (pac pcf init ...), follow similar steps:
+
+bash
+Copy
+Edit
+cd ExternalLookupControl
+git init
+git add .
+git commit -m "Initial commit: PCF External Lookup Control"
+git remote add origin https://github.com/YOUR_USERNAME/external-lookup-pcf.git
+git branch -M main
+git push -u origin main
+💡 Want Me to Generate a ZIP You Can Upload?
+If you'd like, I can generate a .zip file containing:
+
+externalLookup.html
+
+a starter README.md
+
+You can then:
+
+Download the ZIP.
+
+Extract locally.
+
+Run the above git commands to upload.
+
+Let me know if you'd like the zip or the PCF scaffolding created!
