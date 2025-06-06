@@ -1,0 +1,176 @@
+https://www.youtube.com/results?search_query=chatgpt+prompt+engineering+for+developers
+https://www.youtube.com/watch?v=0PqHyqA1PJUhttps://www.youtube.com/results?search_query=chatgpt+prompt+engineering+for+developers
+https://www.pavantestingtools.com/2024/05/how-to-use-chatgpt-in-software-testing.html
+
+
+Prompting
+=============================
+1. User Story Creation
+Rq:
+ As a User I Should able to login in a Ecommerce so that user can access all the features from the application
+ 
+ Prompt : 
+ Create USer Stories for the following requirement.
+ 
+ Requirement: As a User I Should able to login in a Ecommerce so that user can access all the 
+ features from the application.
+
+=============================
+Test case Development
+============================
+
+Create Test cases for the following User Story
+User Story 1: Login Page Access
+As a user,
+I want to access the login page from the homepage,
+So that I can log into my account securely.
+
+Acceptance Criteria:
+The login page is accessible via a "Login" button/link on the homepage.
+The login page displays fields for email/username and password.
+There is a link to reset the password and an option to register if the user doesn't have an account.
+
+==========================
+Sample Ticket resolution data
+========================
+
+Create sample data in excel for Rootcause analysis of a ecommerce system
+
+sample will be having Ticket number , functionality,Priority, Resolution type , Rootcause , Resolution Steps etc
+ 
+=========================================
+please add at lease 1000 rows of records
+=========================================
+
+
+===========
+Syntax Errors detection and Correction
+=================
+Prompt : Find syntax errors and correct the below ava code
+
+
+========================
+Automation Test case generation Script
+=========================
+
+Prompt : 
+Write Automation Test cases using Playwrite with Java and TestNG for the following test cases
+Test Case 1: Verify Login Button/Link is Present on Homepage
+Title: Check if the login button/link is visible on the homepage
+Preconditions: User is on the homepage
+Test Steps:
+Navigate to the homepage
+Look for the login button/link
+Expected Result:
+Login button/link is visible and labeled appropriately (e.g., “Login”)
+
+
+Prompt 
+=============
+Write the test cases for all the login scenarios field visibility ,reset password link, register option
+
+Prompt 
+==============
+Write the Xpath locator for all the key elements in ""
+
+Prompt:
+
+Page obect Model (POM) Class Creation
+
+Prompt1 : I have a web page https://demo.nopcommerce.com/ .Create page object class for Playwrite Java automation framework without Page Gactory. 
+
+Prompt2 : I have a web page https://demo.nopcommerce.com/ .Create page object class for Playwrite Java automation framework without Page Gactory with Page Factory. 
+
+
+BDD Feature File Scenarios Creation
+=======================================
+
+
+Prompt : 
+Create feature file scenarios , Step Definition Java file and integration files for the test case 
+Test Case Title: Verify Login Button/Link is Present on Homepage
+Preconditions: Check if the login button/link is visible on the homepage
+Preconditions: User is on thehomepagehttps://demo.nopcommerce.com/ .create a page obect class for dotnet core automation
+Test Steps:
+1. Navigate to the homepage
+2. Look for the login button/link
+Expected Result: Login button/link is visible and labeled appropriately (e.g., “Login”)
+
+
+
+Promt :
+Write Selenium test XPath locators for all the elements in this page https://demo.nopcommerce.com/
+
+
+Prompt : Page object Model (POM) creation
+
+1: 
+I have a web page https://demo.nopcommerce.com/ .create a page obect class for dotnet core automation framework with Page Factory
+
+2: 
+I have a web page https://demo.nopcommerce.com/ .create a page obect class for dotnet core automation framework without Page Factory
+
+
+BDD Feature File Scenarios Creation: 
+=========================================
+Prompt :
+Create feature file scenarios for the test case 
+Test Case Title: Verify Login Button/Link is Present on Homepage
+Preconditions: Check if the login button/link is visible on the homepage
+Preconditions: User is on thehomepagehttps://demo.nopcommerce.com/ .create a page obect class for dotnet core automation
+Test Steps:
+1. Navigate to the homepage
+2. Look for the login button/link
+Expected Result: Login button/link is visible and labeled appropriately (e.g., “Login”)
+
+
+Utilities Creation
+==================
+Prompt :
+Create an utility in .net core to handle excel Sheet using .net api . I would like to do the following operations
+1) Count Number of Rows in Excel 2)Count Number Of Cells 3)Read Data from the Cell  4) Write data to the cell
+
+Prompt: 
+Create an utility on Python to handle Excel Data using python. I would like to do the following operations
+1) Create a Puthon Solution using Minikonda 2) Read Excel Sheet from a network Share 2) Read the Data From Every cell
+4) Store It to .md file 5) using gen ai and predict answeers on questions 
+ 
+Prompt :
+
+Create an utility program to deploy a plugin in dynamics 365 CRM using .net. I would like to do the following operations
+1) upload the .net assembly file to Dynamics 365 2) create Steps and map the plugn and its operations like Create , Update, Delete
+3)associate the plugin with the crm entity
+
+Prompt :
+
+	Create a utility in java to handle Mongodb database. I would like to do the following operations 
+	1) Read the data from the collection
+	2) Insert data to a collection
+	3)Update Data to a collection
+	4)Delete Data from a collecion
+
+Prompt :
+
+Create an utility Java Spring Framework to habdle Bckground Service. I would like to do the following operations
+1)Create a grade based background service
+2)Service will run and read the messages from kafka 
+3)Update the message in database
+4)Update Dynamics 365 using Dataverse api   
+
+
+Test Data
+==================
+1) Create test data for registration form in tabular format. Data includes First Name, Last Name, DOB,Email, Password,Confirm Password
+
+2) Create test data for registration form in json format. Data includes First Name, Last Name, DOB,Email, Password,Confirm Password
+
+Review Code 
+=======================
+
+
+
+Doesnt Support Vidio, image type of data. Working only for the text content
+
+
+
+
